@@ -1,16 +1,15 @@
-
 fun main(args: Array<String>) {
 
 
-   var table:MutableList<String> = mutableListOf()
+   val table:MutableList<String> = mutableListOf()
 
     for(a in args) {
         table.add(a+" "+args.count { it == a })
     }
-    var dist = table.distinct()
+    val dist = table.distinct()
 
-    val lengthComparator = compareByDescending<String> { it.substring(it.lastIndex) }
-    val lengthThenString = lengthComparator.thenBy { it.substring(0,it.length-1) }
+    val lengthComparator = compareByDescending<String> { it.substring(it.indexOf(' '),it.lastIndex) }
+    val lengthThenString = lengthComparator.thenBy { it.substring(0,it.indexOf(' ')) }
 
     for(a in dist.sortedWith(lengthThenString))
         println(a)
